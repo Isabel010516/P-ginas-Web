@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escuelas Formativas - Gimnasio Los Ángeles</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background: linear-gradient(135deg,#ffeb3b,#ff9800,#4caf50,#03a9f4);
+    background-size:400% 400%;
+    animation:fondo 12s ease infinite;
+    min-height:100vh;
+}
+
+@keyframes fondo{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+header{
+    text-align:center;
+    padding:20px;
+}
+
+.logo{
+    width:180px;
+    background:white;
+    border-radius:20px;
+    padding:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+h1{
+    color:white;
+    text-shadow:2px 2px 5px rgba(0,0,0,.4);
+    margin-top:15px;
+}
+
+.contenedor{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    padding:30px 0;
+}
+
+.tarjeta{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
+}
+
+.tarjeta:hover{
+    transform:translateY(-10px) scale(1.03);
+}
+
+.tarjeta img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+}
+
+.tarjeta button{
+    width:100%;
+    padding:15px;
+    border:none;
+    background:#ff5722;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.tarjeta button:hover{
+    background:#e64a19;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    z-index:999;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.7);
+}
+
+.modal-content{
+    background:white;
+    width:90%;
+    max-width:800px;
+    margin:5% auto;
+    padding:30px;
+    border-radius:20px;
+    position:relative;
+    animation:aparecer .4s ease;
+}
+
+@keyframes aparecer{
+    from{
+        transform:scale(.7);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+.cerrar{
+    position:absolute;
+    top:15px;
+    right:20px;
+    font-size:30px;
+    cursor:pointer;
+    color:red;
+    font-weight:bold;
+}
+
+.modal h2{
+    color:#ff5722;
+    margin-bottom:15px;
+}
+
+.modal p{
+    text-align:justify;
+    line-height:1.8;
+    font-size:17px;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+}
+
+footer a{
+    background:#e91e63;
+    color:white;
+    text-decoration:none;
+    padding:12px 25px;
+    border-radius:30px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+footer a:hover{
+    background:#c2185b;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+    <img class="logo" src="https://angelitos.edu.co/wp-content/uploads/2024/01/cropped-cropped-LogoGimnasioAngeles_V1.png">
+    <h1>Escuelas Formativas Gimnasio Los Ángeles</h1>
+</header>
+
+<div class="contenedor">
+
+    <div class="tarjeta" onclick="abrirModal('ingles')">
+        <img src="https://angelitos.edu.co/wp-content/uploads/2025/10/udeki-ingles-768x1024.png">
+        <button>Inglés</button>
+    </div>
+
+    <div class="tarjeta" onclick="abrirModal('ballet')">
+        <img src="https://angelitos.edu.co/wp-content/uploads/2025/10/udeki-ballet-768x1024.png">
+        <button>Ballet</button>
+    </div>
+
+    <div class="tarjeta" onclick="abrirModal('futsala')">
+        <img src="https://angelitos.edu.co/wp-content/uploads/2025/10/udeki-futsal-768x1024.png">
+        <button>Fútsala</button>
+    </div>
+
+    <div class="tarjeta" onclick="abrirModal('club')">
+        <img src="https://angelitos.edu.co/wp-content/uploads/2025/10/udeki-club-tareas2-1-768x1024.png">
+        <button>Club de Tareas</button>
+    </div>
+
+    <div class="tarjeta" onclick="abrirModal('info')">
+        <img src="https://angelitos.edu.co/wp-content/uploads/2024/01/cropped-cropped-LogoGimnasioAngeles_V1.png">
+        <button>Información General</button>
+    </div>
+
+</div>
+
+<footer>
+    <a href="https://www.instagram.com/p/DWXbHlTDe0e/?img_index=6" target="_blank">
+        📸 Visítanos en Instagram
+    </a>
+</footer>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="cerrar" onclick="cerrarModal()">✖</span>
+        <h2 id="titulo"></h2>
+        <p id="texto"></p>
+    </div>
+</div>
+
+<script>
+
+function abrirModal(tipo){
+
+const titulo = document.getElementById("titulo");
+const texto = document.getElementById("texto");
+
+if(tipo==="ingles"){
+titulo.innerHTML="Escuela Formativa de Inglés";
+texto.innerHTML=`Nuestra Escuela Formativa de Inglés está pensada como un espacio conversacional lleno de alegría, imaginación y aprendizaje, donde los niños y niñas de 3 a 12 años descubren el idioma a través de experiencias significativas y divertidas.
+
+En un ambiente cercano y participativo, los estudiantes exploran el inglés mediante juegos, canciones, dramatizaciones y actividades interactivas, que les permiten comunicarse con naturalidad y confianza.
+
+Cada clase se convierte en una oportunidad para fortalecer la creatividad, la socialización y la expresión oral, fomentando no solo el dominio del idioma, sino también el gusto por aprender, la curiosidad y la seguridad en sí mismos.
+
+Aquí, aprender inglés es vivir una aventura dinámica, lúdica y llena de descubrimientos.`;
+}
+
+if(tipo==="ballet"){
+titulo.innerHTML="Escuela Formativa de Ballet";
+texto.innerHTML=`El aprendizaje del ballet, especialmente en el nivel de fundamentos, permite que las bailarinas desde temprana edad fortalezcan su cuerpo, trabajando en equilibrio, fuerza, flexibilidad, coordinación y armonía corporal.
+
+Nuestra Escuela Formativa de Ballet está dirigida a niñas de 3 a 11 años de edad, brindándoles un espacio para descubrir la belleza del movimiento y el arte de la expresión corporal.
+
+A través de esta disciplina artística, las estudiantes desarrollan la sensibilidad musical, el sentido rítmico y la memoria coreográfica, contribuyendo así a su desarrollo integral.
+
+En el ámbito personal, la práctica del ballet fomenta la disciplina, el orden, el respeto por sí mismas y por los demás, además de promover la estabilidad emocional y la alegría que surgen al disfrutar del arte del movimiento.`;
+}
+
+if(tipo==="futsala"){
+titulo.innerHTML="Escuela Formativa de Fútsala";
+texto.innerHTML=`La Escuela Formativa de Fútsala brinda a los estudiantes la oportunidad de desarrollar habilidades deportivas, fortalecer el trabajo en equipo y fomentar hábitos de vida saludables.
+
+A través de actividades dinámicas y entrenamientos adaptados a cada edad, los participantes mejoran su coordinación, resistencia física, disciplina y espíritu deportivo.
+
+La práctica constante fortalece valores como el respeto, la responsabilidad, la perseverancia y la sana competencia, contribuyendo al crecimiento integral de los niños y niñas en un ambiente lleno de energía, compañerismo y diversión.`;
+}
+
+if(tipo==="club"){
+titulo.innerHTML="Club de Tareas";
+texto.innerHTML=`El Club de Tareas es un espacio diseñado para acompañar a los estudiantes de 3 a 11 años de edad en su proceso académico, brindándoles un entorno tranquilo, organizado y motivador donde puedan reforzar sus aprendizajes y fortalecer sus hábitos de estudio.
+
+Más que un lugar para realizar deberes, este club se convierte en un espacio de apoyo y crecimiento personal, en el que los niños aprenden a ser responsables, autónomos y perseverantes, desarrollando habilidades que los ayudan a asumir con entusiasmo sus retos escolares.
+
+A través de un acompañamiento constante y una orientación cercana, los estudiantes descubren que aprender también puede ser una experiencia alegre, significativa y compartida. 🌈`;
+}
+
+if(tipo==="info"){
+titulo.innerHTML="Bienvenidos";
+texto.innerHTML=`Las Escuelas Formativas del Gimnasio Los Ángeles ofrecen experiencias enriquecedoras para el desarrollo integral de niños y niñas, promoviendo el aprendizaje, la creatividad, el deporte y la formación de valores en un ambiente seguro, alegre y lleno de oportunidades para crecer.`;
+}
+
+document.getElementById("modal").style.display="block";
+}
+
+function cerrarModal(){
+document.getElementById("modal").style.display="none";
+}
+
+window.onclick=function(event){
+const modal=document.getElementById("modal");
+if(event.target==modal){
+modal.style.display="none";
+}
+}
+
+</script>
+
+</body>
+</html>
